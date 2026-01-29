@@ -52,6 +52,11 @@
           />
         </div>
       </div>
+      <!-- Fun Mode Overlay -->
+      <FunModeOverlay
+        v-if="funModeActive"
+        :wsComposable="wsComposable"
+      />
     </template>
   </div>
 </template>
@@ -64,11 +69,13 @@ import NamePrompt from '../components/NamePrompt.vue'
 import UserList from '../components/UserList.vue'
 import RoomControls from '../components/RoomControls.vue'
 import CardDeck from '../components/CardDeck.vue'
+import FunModeOverlay from '../components/FunMode/FunModeOverlay.vue'
 
 const route = useRoute()
 const roomId = computed(() => route.params.id)
 
-const { connected, room, userId, error, connect, join, vote, reveal, reset, resetRoom } = useWebSocket()
+const wsComposable = useWebSocket()
+const { connected, room, userId, error, connect, join, vote, reveal, reset, resetRoom, funModeActive, funStart } = wsComposable
 
 const cachedName = localStorage.getItem('scrumpoker_name') || ''
 const userName = ref('')
@@ -94,6 +101,21 @@ watch([connected, userName], ([isConnected, name]) => {
     join(roomId.value, name)
   }
 })
+
+// Easter egg: Deathmatch Mode triggers when all players vote skull (💀)
+watch(() => room.value?.revealed, (revealed) => {
+  if (revealed && checkAllSkullVotes()) {
+    funStart()
+  }
+})
+
+function checkAllSkullVotes() {
+  const users = room.value?.users || []
+  // Need at least 2 players for the easter egg
+  if (users.length < 2) return false
+  // All users must have voted 'million' (the skull card)
+  return users.every(u => u.vote === 'million')
+}
 
 function handleNameSubmit(name) {
   userName.value = name
@@ -129,6 +151,7 @@ async function copyRoomLink() {
     console.error('Failed to copy:', e)
   }
 }
+
 </script>
 
 <style scoped>

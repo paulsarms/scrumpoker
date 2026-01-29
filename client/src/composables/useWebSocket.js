@@ -7,6 +7,13 @@ export function useWebSocket() {
   const userId = ref(null)
   const error = ref(null)
 
+  // Fun Mode state
+  const funModeActive = ref(false)
+  const funModeStartedBy = ref(null)
+  const funModeState = ref(null)
+  const funModeEnded = ref(null)
+  const funModeCallbacks = ref({})
+
   let reconnectTimeout = null
   let reconnectAttempts = 0
   const maxReconnectAttempts = 5
@@ -95,6 +102,41 @@ export function useWebSocket() {
         // Room was reset, reload the page to show name entry
         window.location.reload()
         break
+
+      // Fun Mode messages
+      case 'fun_started':
+        funModeActive.value = true
+        funModeStartedBy.value = message.startedBy
+        funModeEnded.value = null
+        funModeState.value = null
+        if (funModeCallbacks.value.onStarted) {
+          funModeCallbacks.value.onStarted(message)
+        }
+        break
+
+      case 'fun_state':
+        funModeState.value = message
+        if (funModeCallbacks.value.onState) {
+          funModeCallbacks.value.onState(message)
+        }
+        break
+
+      case 'fun_ended':
+        funModeEnded.value = message
+        if (funModeCallbacks.value.onEnded) {
+          funModeCallbacks.value.onEnded(message)
+        }
+        break
+
+      case 'fun_stopped':
+        funModeActive.value = false
+        funModeStartedBy.value = null
+        funModeState.value = null
+        funModeEnded.value = null
+        if (funModeCallbacks.value.onStopped) {
+          funModeCallbacks.value.onStopped()
+        }
+        break
     }
   }
 
@@ -126,6 +168,27 @@ export function useWebSocket() {
     send({ type: 'reset_room' })
   }
 
+  // Fun Mode functions
+  function funStart() {
+    send({ type: 'fun_start' })
+  }
+
+  function funInput(input) {
+    send({ type: 'fun_input', input })
+  }
+
+  function funRestart() {
+    send({ type: 'fun_restart' })
+  }
+
+  function funExit() {
+    send({ type: 'fun_exit' })
+  }
+
+  function setFunModeCallbacks(callbacks) {
+    funModeCallbacks.value = callbacks
+  }
+
   function disconnect() {
     savedRoomId = null
     savedUserName = null
@@ -139,6 +202,10 @@ export function useWebSocket() {
     connected.value = false
     room.value = null
     userId.value = null
+    funModeActive.value = false
+    funModeStartedBy.value = null
+    funModeState.value = null
+    funModeEnded.value = null
   }
 
   onUnmounted(() => {
@@ -156,6 +223,16 @@ export function useWebSocket() {
     reveal,
     reset,
     resetRoom,
-    disconnect
+    disconnect,
+    // Fun Mode
+    funModeActive,
+    funModeStartedBy,
+    funModeState,
+    funModeEnded,
+    funStart,
+    funInput,
+    funRestart,
+    funExit,
+    setFunModeCallbacks
   }
 }

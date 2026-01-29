@@ -11,8 +11,19 @@ import {
   resetRoom,
   getRoomClients,
   getPublicRoomState,
-  getRoom
+  getRoom,
+  getUserConnection,
+  getRoomConnections
 } from './rooms.js';
+import {
+  startGame,
+  stopGame,
+  getGame,
+  updatePlayerInput,
+  addPlayerToGame,
+  removePlayerFromGame,
+  startGameLoop
+} from './funMode.js';
 
 const app = express();
 const server = createServer(app);
@@ -141,12 +152,117 @@ wss.on('connection', (ws) => {
         break;
       }
 
+      // Fun Mode handlers
+      case 'fun_start': {
+        const connection = getUserConnection(ws);
+        if (!connection) break;
+
+        const { roomId, userId } = connection;
+        const room = getRoom(roomId);
+        if (!room) break;
+
+        // Check if game already running
+        if (getGame(roomId)) {
+          send(ws, { type: 'error', message: 'Fun Mode already active' });
+          break;
+        }
+
+        // Start the game with all users in the room
+        startGame(roomId, room.users, userId);
+
+        // Broadcast game started
+        broadcast(roomId, { type: 'fun_started', startedBy: userId });
+
+        // Start game loop
+        startGameLoop(roomId, (state) => {
+          broadcast(roomId, state);
+        });
+
+        console.log(`Fun Mode started in room ${roomId} by user ${userId}`);
+        break;
+      }
+
+      case 'fun_input': {
+        const connection = getUserConnection(ws);
+        if (!connection) break;
+
+        const { roomId, userId } = connection;
+        updatePlayerInput(roomId, userId, message.input);
+        break;
+      }
+
+      case 'fun_restart': {
+        const connection = getUserConnection(ws);
+        if (!connection) break;
+
+        const { roomId, userId } = connection;
+        const game = getGame(roomId);
+
+        // Only startedBy user can restart
+        if (!game || game.startedBy !== userId) {
+          send(ws, { type: 'error', message: 'Only the game starter can restart' });
+          break;
+        }
+
+        const room = getRoom(roomId);
+        if (!room) break;
+
+        // Stop current game and start new one
+        stopGame(roomId);
+        startGame(roomId, room.users, userId);
+
+        broadcast(roomId, { type: 'fun_started', startedBy: userId });
+
+        startGameLoop(roomId, (state) => {
+          broadcast(roomId, state);
+        });
+
+        console.log(`Fun Mode restarted in room ${roomId}`);
+        break;
+      }
+
+      case 'fun_exit': {
+        const connection = getUserConnection(ws);
+        if (!connection) break;
+
+        const { roomId, userId } = connection;
+        const game = getGame(roomId);
+
+        // Only startedBy user can exit for everyone
+        if (game && game.startedBy === userId) {
+          stopGame(roomId);
+          broadcast(roomId, { type: 'fun_stopped' });
+          console.log(`Fun Mode stopped in room ${roomId}`);
+        }
+        break;
+      }
+
       default:
         send(ws, { type: 'error', message: 'Unknown message type' });
     }
   });
 
   ws.on('close', () => {
+    // Get connection info before leaving
+    const connection = getUserConnection(ws);
+
+    // Handle Fun Mode disconnect
+    if (connection) {
+      const { roomId, userId } = connection;
+      const game = getGame(roomId);
+      if (game) {
+        removePlayerFromGame(roomId, userId);
+
+        // Check if startedBy left and transfer control
+        if (game.startedBy === userId) {
+          const alivePlayers = Object.values(game.players).filter(p => p.alive);
+          if (alivePlayers.length > 0) {
+            game.startedBy = alivePlayers[0].id;
+          }
+        }
+      }
+    }
+
     const result = leaveRoom(ws);
 
     if (result) {

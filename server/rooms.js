@@ -4,6 +4,22 @@ import { loadRooms, saveRooms, cleanupStaleRooms } from './storage.js';
 const rooms = loadRooms();
 const userConnections = new Map(); // Maps WebSocket to { roomId, userId }
 
+// Export for funMode to access user connections
+export function getUserConnection(ws) {
+  return userConnections.get(ws);
+}
+
+// Get all connections for a room
+export function getRoomConnections(roomId) {
+  const connections = [];
+  for (const [ws, conn] of userConnections) {
+    if (conn.roomId === roomId) {
+      connections.push({ ws, ...conn });
+    }
+  }
+  return connections;
+}
+
 // Cleanup stale rooms on startup and every hour
 cleanupStaleRooms(rooms);
 setInterval(() => cleanupStaleRooms(rooms), 60 * 60 * 1000);
