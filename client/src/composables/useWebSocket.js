@@ -14,6 +14,10 @@ export function useWebSocket() {
   let savedUserName = null
 
   function getWebSocketUrl() {
+    // Use environment variable for production, fallback to same host for local dev
+    if (import.meta.env.VITE_WS_URL) {
+      return import.meta.env.VITE_WS_URL
+    }
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
     const host = window.location.host
     return `${protocol}//${host}/ws`
