@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(pkill:*)",
+      "Bash(timeout 5 node:*)",
+      "Bash(node:*)",
+      "Bash(curl:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill)",
+      "Bash(xargs kill:*)",
+      "Bash(ps:*)"
+    ]
+  }
+}

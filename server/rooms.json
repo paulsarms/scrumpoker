@@ -1,0 +1,35 @@
+{
+  "704218": {
+    "id": "704218",
+    "users": [
+      {
+        "id": "1cff06f8-3c5b-4411-9322-cc447efa0343",
+        "name": "pablo",
+        "vote": null
+      }
+    ],
+    "revealed": false,
+    "createdAt": 1769616774650,
+    "lastActivity": 1769616911235
+  },
+  "942620": {
+    "id": "942620",
+    "users": [],
+    "revealed": false,
+    "createdAt": 1769611760456,
+    "lastActivity": 1769611760456
+  },
+  "992425": {
+    "id": "992425",
+    "users": [
+      {
+        "id": "33ef2881-ce82-40ca-acdf-de392a3d3cdf",
+        "name": "pablo",
+        "vote": null
+      }
+    ],
+    "revealed": false,
+    "createdAt": 1769618669047,
+    "lastActivity": 1769624982372
+  }
+}
