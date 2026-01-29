@@ -57,11 +57,11 @@ function handleSelect(value) {
 .card-deck {
   background: var(--color-white);
   border: 4px solid var(--color-black);
-  padding: 1.5rem;
+  padding: 0.75rem;
 }
 
 .deck-title {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -70,11 +70,19 @@ function handleSelect(value) {
 .cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem;
   justify-content: center;
 }
 
 @media (min-width: 768px) {
+  .card-deck {
+    padding: 1.5rem;
+  }
+
+  .deck-title {
+    margin-bottom: 1rem;
+  }
+
   .cards {
     gap: 1rem;
   }

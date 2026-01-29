@@ -48,8 +48,8 @@ function handleClick() {
 
 <style scoped>
 .poker-card {
-  width: 60px;
-  height: 80px;
+  width: 45px;
+  height: 60px;
   background: var(--color-white);
   border: 4px solid var(--color-black);
   box-shadow: var(--shadow);
@@ -87,19 +87,19 @@ function handleClick() {
 }
 
 .card-value {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-black);
 }
 
 @media (min-width: 768px) {
   .poker-card {
-    width: 70px;
-    height: 95px;
+    width: 60px;
+    height: 80px;
   }
 
   .card-value {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 </style>

@@ -228,21 +228,6 @@ async function copyRoomLink() {
 }
 
 .deck-area {
-  position: sticky;
-  bottom: 0;
-  background: var(--color-bg);
-  padding: 1rem 0;
-  border-top: 4px solid var(--color-black);
-  margin: 0 -2rem;
-  padding: 1rem 2rem;
-}
-
-@media (min-width: 768px) {
-  .deck-area {
-    position: static;
-    border-top: none;
-    margin: 0;
-    padding: 0;
-  }
+  /* Static on mobile - no sticky positioning */
 }
 </style>
