@@ -17,6 +17,7 @@
         :alive="player.alive"
         :invincible="player.invincible"
         :thrusting="player.thrusting"
+        :shooting="player.shooting"
         :isCurrent="player.id === currentUserId"
         :isHit="isPlayerHit(player.id)"
       />
@@ -164,7 +165,7 @@ onMounted(() => {
 
   setTimeout(() => {
     showInstructions.value = false
-  }, 3000)
+  }, 5000)
 })
 
 onUnmounted(() => {
@@ -331,7 +332,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.7);
-  animation: fadeOut 3s forwards;
+  animation: fadeOut 5s forwards;
   pointer-events: none;
 }
 

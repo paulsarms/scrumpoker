@@ -1,41 +1,20 @@
 {
-  "592778": {
-    "id": "592778",
+  "743784": {
+    "id": "743784",
     "users": [
       {
-        "id": "06007248-657e-41a0-9c2d-149dd3a17b5c",
-        "name": "tim",
-        "vote": null
-      }
-    ],
-    "revealed": false,
-    "createdAt": 1769700937333,
-    "lastActivity": 1769700937334
-  },
-  "704218": {
-    "id": "704218",
-    "users": [
+        "id": "46b9678f-7d64-462b-9732-b9dacf0ab1e4",
+        "name": "bob",
+        "vote": "million"
+      },
       {
-        "id": "1cff06f8-3c5b-4411-9322-cc447efa0343",
-        "name": "pablo",
-        "vote": null
+        "id": "eb576671-6547-4801-988d-c4eb513421e7",
+        "name": "alive",
+        "vote": "million"
       }
     ],
-    "revealed": false,
-    "createdAt": 1769616774650,
-    "lastActivity": 1769616911235
-  },
-  "992425": {
-    "id": "992425",
-    "users": [
-      {
-        "id": "33ef2881-ce82-40ca-acdf-de392a3d3cdf",
-        "name": "pablo",
-        "vote": null
-      }
-    ],
-    "revealed": false,
-    "createdAt": 1769618669047,
-    "lastActivity": 1769624982372
+    "revealed": true,
+    "createdAt": 1770288316298,
+    "lastActivity": 1770288360992
   }
 }

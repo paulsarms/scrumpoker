@@ -14,7 +14,9 @@
     }"
   >
     <!-- Gun -->
-    <div class="gun"></div>
+    <div class="gun">
+      <div v-if="shooting" class="muzzle-flash"></div>
+    </div>
 
     <!-- Ship body (card) -->
     <div class="card-body">
@@ -78,6 +80,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  shooting: {
+    type: Boolean,
+    default: false
+  },
   isCurrent: {
     type: Boolean,
     default: false
@@ -118,8 +124,8 @@ watch(() => props.isHit, (hit) => {
 <style scoped>
 .spaceship {
   position: absolute;
-  width: 50px;
-  height: 90px;
+  width: 32px;
+  height: 58px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,7 +147,7 @@ watch(() => props.isHit, (hit) => {
 
 .spaceship.is-current .card-body {
   border-color: var(--color-accent);
-  box-shadow: 8px 8px 0 var(--color-black), 0 0 20px rgba(0, 188, 212, 0.5);
+  box-shadow: 0 0 12px rgba(0, 188, 212, 0.6);
 }
 
 @keyframes pulse {
@@ -151,31 +157,54 @@ watch(() => props.isHit, (hit) => {
 
 /* Gun */
 .gun {
-  width: 10px;
-  height: 16px;
-  background: var(--color-black);
+  width: 6px;
+  height: 10px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
   border-radius: 2px;
   position: relative;
   z-index: 2;
 }
 
+.muzzle-flash {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 12px;
+  background: radial-gradient(ellipse at center bottom, #ffffff, #ffcc00, #ff6b35, transparent);
+  border-radius: 50% 50% 30% 30%;
+  animation: muzzle-flicker 0.05s ease-out infinite alternate;
+}
+
+@keyframes muzzle-flicker {
+  from {
+    opacity: 0.9;
+    transform: translateX(-50%) scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
 /* Card body */
 .card-body {
-  width: 50px;
-  height: 70px;
+  width: 32px;
+  height: 45px;
   background: var(--color-white);
-  border: 4px solid var(--color-black);
-  box-shadow: 6px 6px 0 var(--color-black);
+  border: 3px solid var(--color-black);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 1;
-  margin-top: -4px;
+  margin-top: -3px;
 }
 
 .card-label {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-black);
 }
@@ -183,37 +212,37 @@ watch(() => props.isHit, (hit) => {
 /* Wings */
 .wing {
   position: absolute;
-  width: 20px;
-  height: 10px;
+  width: 13px;
+  height: 6px;
   background: var(--color-primary);
-  border: 3px solid var(--color-black);
-  top: 40px;
+  border: 2px solid var(--color-black);
+  top: 26px;
   z-index: 0;
 }
 
 .wing-left {
-  left: -15px;
+  left: -10px;
   transform: skewY(-10deg);
 }
 
 .wing-right {
-  right: -15px;
+  right: -10px;
   transform: skewY(10deg);
 }
 
 /* Boosters */
 .boosters {
   display: flex;
-  gap: 12px;
-  margin-top: -4px;
+  gap: 8px;
+  margin-top: -3px;
   z-index: 1;
 }
 
 .booster {
-  width: 10px;
-  height: 14px;
+  width: 6px;
+  height: 9px;
   background: var(--color-black);
-  border-radius: 0 0 3px 3px;
+  border-radius: 0 0 2px 2px;
   position: relative;
 }
 
@@ -222,8 +251,8 @@ watch(() => props.isHit, (hit) => {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 8px;
-  height: 20px;
+  width: 5px;
+  height: 13px;
   background: linear-gradient(to bottom, #ff6b35, #ffcc00, transparent);
   border-radius: 0 0 50% 50%;
   animation: flicker 0.1s ease-in-out infinite alternate;
@@ -231,11 +260,11 @@ watch(() => props.isHit, (hit) => {
 
 @keyframes flicker {
   from {
-    height: 18px;
+    height: 12px;
     opacity: 0.9;
   }
   to {
-    height: 24px;
+    height: 16px;
     opacity: 1;
   }
 }
@@ -243,13 +272,13 @@ watch(() => props.isHit, (hit) => {
 /* Player name */
 .player-name {
   position: absolute;
-  bottom: -24px;
+  bottom: -16px;
   font-size: 10px;
   font-weight: 700;
   color: var(--color-white);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   white-space: nowrap;
-  max-width: 80px;
+  max-width: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
