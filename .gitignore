@@ -31,6 +31,9 @@ Thumbs.db
 # Coverage
 coverage/
 
+# Runtime data
+server/rooms.json
+
 # Cache
 .cache/
 .parcel-cache/
