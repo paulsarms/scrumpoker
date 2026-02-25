@@ -31,7 +31,13 @@ export function useWebSocket() {
   }
 
   function connect() {
-    if (ws.value?.readyState === WebSocket.OPEN) return
+    if (ws.value?.readyState === WebSocket.OPEN || ws.value?.readyState === WebSocket.CONNECTING) return
+
+    // Close any lingering socket in CLOSING state
+    if (ws.value && ws.value.readyState !== WebSocket.CLOSED) {
+      ws.value.onclose = null
+      ws.value.close()
+    }
 
     const url = getWebSocketUrl()
     ws.value = new WebSocket(url)
@@ -40,11 +46,6 @@ export function useWebSocket() {
       connected.value = true
       error.value = null
       reconnectAttempts = 0
-
-      // Rejoin room if we have saved credentials
-      if (savedRoomId && savedUserName) {
-        join(savedRoomId, savedUserName)
-      }
     }
 
     ws.value.onclose = () => {
@@ -83,7 +84,7 @@ export function useWebSocket() {
         break
 
       case 'user_joined':
-        if (room.value) {
+        if (room.value && !room.value.users.some(u => u.id === message.user.id)) {
           room.value.users.push(message.user)
         }
         break

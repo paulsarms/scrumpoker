@@ -65,6 +65,24 @@ export function joinRoom(roomId, userName, ws) {
     rooms.set(roomId, room);
   }
 
+  // Check if a user with the same name already exists in this room (reconnect scenario)
+  const existingUser = room.users.find(u => u.name === userName);
+  if (existingUser) {
+    // Remove the stale connection mapping for the old socket
+    for (const [oldWs, conn] of userConnections) {
+      if (conn.roomId === roomId && conn.userId === existingUser.id) {
+        userConnections.delete(oldWs);
+        break;
+      }
+    }
+
+    // Reuse the existing user entry with the new socket
+    userConnections.set(ws, { roomId, userId: existingUser.id });
+    room.lastActivity = Date.now();
+    saveRooms(rooms);
+    return { room, userId: existingUser.id };
+  }
+
   const userId = uuidv4();
   const user = {
     id: userId,
