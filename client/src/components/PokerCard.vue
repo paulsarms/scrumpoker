@@ -50,8 +50,9 @@ function handleClick() {
 .poker-card {
   width: 45px;
   height: 60px;
-  background: var(--color-white);
-  border: 4px solid var(--color-black);
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
@@ -59,22 +60,23 @@ function handleClick() {
   align-items: center;
   justify-content: center;
   font-family: inherit;
+  backdrop-filter: var(--card-backdrop);
 }
 
 .poker-card:hover:not(:disabled) {
-  transform: translate(-2px, -4px);
-  box-shadow: 8px 10px 0 var(--color-black);
+  transform: var(--hover-transform);
+  box-shadow: var(--hover-shadow);
 }
 
 .poker-card:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0 var(--color-black);
+  transform: var(--active-transform);
+  box-shadow: var(--active-shadow);
 }
 
 .poker-card.selected {
   background: var(--color-primary);
-  transform: translate(-2px, -6px);
-  box-shadow: 8px 12px 0 var(--color-black);
+  transform: var(--hover-transform);
+  box-shadow: var(--hover-shadow);
 }
 
 .poker-card.disabled {
@@ -83,13 +85,17 @@ function handleClick() {
 }
 
 .poker-card.disabled:not(.selected) {
-  background: #e0e0e0;
+  background: var(--color-bg);
 }
 
 .card-value {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--color-black);
+  color: var(--color-text);
+}
+
+.poker-card.selected .card-value {
+  color: var(--color-text);
 }
 
 @media (min-width: 768px) {

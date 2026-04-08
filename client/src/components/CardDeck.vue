@@ -55,9 +55,11 @@ function handleSelect(value) {
 
 <style scoped>
 .card-deck {
-  background: var(--color-white);
-  border: 4px solid var(--color-black);
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
   padding: 0.75rem;
+  backdrop-filter: var(--card-backdrop);
 }
 
 .deck-title {

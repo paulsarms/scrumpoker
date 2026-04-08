@@ -76,7 +76,7 @@ function joinRoom() {
 
 .hero p {
   font-size: 1.25rem;
-  color: #666;
+  color: var(--color-text-muted);
 }
 
 .actions {
@@ -86,10 +86,12 @@ function joinRoom() {
 }
 
 .card {
-  background: var(--color-white);
-  border: 4px solid var(--color-black);
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 2rem;
+  backdrop-filter: var(--card-backdrop);
 }
 
 .card h2 {
@@ -97,7 +99,7 @@ function joinRoom() {
 }
 
 .card p {
-  color: #666;
+  color: var(--color-text-muted);
   margin-bottom: 1.5rem;
 }
 
@@ -113,10 +115,13 @@ function joinRoom() {
   font-size: 1.25rem;
   font-family: inherit;
   font-weight: 500;
-  border: 4px solid var(--color-black);
-  background: var(--color-white);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
   text-align: center;
   letter-spacing: 0.25em;
+  backdrop-filter: var(--card-backdrop);
 }
 
 .input:focus {
@@ -130,19 +135,20 @@ function joinRoom() {
   font-size: 1.125rem;
   font-family: inherit;
   font-weight: 700;
-  border: 4px solid var(--color-black);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .btn:hover:not(:disabled) {
-  transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0 var(--color-black);
+  transform: var(--hover-transform);
+  box-shadow: var(--hover-shadow);
 }
 
 .btn:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0 var(--color-black);
+  transform: var(--active-transform);
+  box-shadow: var(--active-shadow);
 }
 
 .btn:disabled {
@@ -152,13 +158,13 @@ function joinRoom() {
 
 .btn-primary {
   background: var(--color-primary);
-  color: var(--color-black);
+  color: var(--color-text);
   box-shadow: var(--shadow);
 }
 
 .btn-secondary {
   background: var(--color-accent);
-  color: var(--color-black);
+  color: var(--color-text);
   box-shadow: var(--shadow);
 }
 </style>
