@@ -199,15 +199,18 @@ async function copyRoomLink() {
   font-family: inherit;
   font-weight: 700;
   font-size: 0.875rem;
-  background: var(--color-white);
-  border: 3px solid var(--color-black);
+  background: var(--color-surface);
+  border: var(--border-w-sm) solid var(--color-border);
+  border-radius: var(--radius);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
+  color: var(--color-text);
+  backdrop-filter: var(--card-backdrop);
 }
 
 .copy-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--color-black);
+  transform: var(--hover-transform);
+  box-shadow: var(--shadow-sm);
 }
 
 .header-actions {
@@ -222,22 +225,26 @@ async function copyRoomLink() {
   font-weight: 700;
   font-size: 0.875rem;
   background: var(--color-secondary);
-  border: 3px solid var(--color-black);
+  border: var(--border-w-sm) solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .reset-room-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--color-black);
+  transform: var(--hover-transform);
+  box-shadow: var(--shadow-sm);
 }
 
 .connection-status {
   padding: 0.5rem 1rem;
   font-weight: 700;
   font-size: 0.875rem;
-  border: 3px solid var(--color-black);
+  border: var(--border-w-sm) solid var(--color-border);
+  border-radius: var(--radius);
   background: var(--color-secondary);
+  color: var(--color-text);
 }
 
 .connection-status.connected {
@@ -246,7 +253,8 @@ async function copyRoomLink() {
 
 .error-banner {
   background: var(--color-secondary);
-  border: 4px solid var(--color-black);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
   padding: 1rem;
   margin-bottom: 2rem;
   font-weight: 700;

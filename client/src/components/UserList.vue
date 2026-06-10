@@ -74,9 +74,11 @@ function getVoteLabel(vote) {
 
 <style scoped>
 .user-list {
-  background: var(--color-white);
-  border: 4px solid var(--color-black);
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
   padding: 1rem;
+  backdrop-filter: var(--card-backdrop);
 }
 
 .list-title {
@@ -97,14 +99,15 @@ function getVoteLabel(vote) {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 0.75rem;
-  border: 2px solid var(--color-black);
-  background: #f0f0f0;
+  border: var(--border-w-xs) solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
   transition: background-color 0.2s;
 }
 
 .user-row.is-you {
   border-color: var(--color-accent);
-  border-width: 3px;
+  border-width: var(--border-w-sm);
 }
 
 .user-row.has-voted {
@@ -123,26 +126,28 @@ function getVoteLabel(vote) {
 
 .you-badge {
   font-size: 0.7rem;
-  color: #666;
+  color: var(--color-text-muted);
   margin-left: 0.25rem;
 }
 
 .user-vote {
   width: 36px;
   height: 48px;
-  background: var(--color-white);
-  border: 2px solid var(--color-black);
+  background: var(--color-surface);
+  border: var(--border-w-xs) solid var(--color-border);
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   font-weight: 700;
   flex-shrink: 0;
+  backdrop-filter: var(--card-backdrop);
 }
 
 .user-row.has-voted:not(.revealed) .user-vote {
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--color-text);
+  color: var(--color-surface);
 }
 
 @media (min-width: 640px) {
@@ -161,11 +166,11 @@ function getVoteLabel(vote) {
 
   .user-row {
     padding: 0.75rem 1rem;
-    border-width: 3px;
+    border-width: var(--border-w-sm);
   }
 
   .user-row.is-you {
-    border-width: 4px;
+    border-width: var(--border-w);
   }
 
   .user-name {
@@ -176,7 +181,7 @@ function getVoteLabel(vote) {
     width: 45px;
     height: 60px;
     font-size: 1.25rem;
-    border-width: 3px;
+    border-width: var(--border-w-sm);
   }
 }
 </style>

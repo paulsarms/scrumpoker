@@ -61,12 +61,14 @@ function handleSubmit() {
 }
 
 .name-prompt {
-  background: var(--color-white);
-  border: 4px solid var(--color-black);
-  box-shadow: 8px 8px 0 var(--color-black);
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--hover-shadow);
   padding: 2rem;
   width: 100%;
   max-width: 400px;
+  backdrop-filter: var(--card-backdrop);
 }
 
 .name-prompt h2 {
@@ -86,8 +88,11 @@ function handleSubmit() {
   font-size: 1.125rem;
   font-family: inherit;
   font-weight: 500;
-  border: 4px solid var(--color-black);
-  background: var(--color-white);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  backdrop-filter: var(--card-backdrop);
 }
 
 .input:focus {
@@ -101,21 +106,23 @@ function handleSubmit() {
   font-size: 1.125rem;
   font-family: inherit;
   font-weight: 700;
-  border: 4px solid var(--color-black);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
   background: var(--color-primary);
+  color: var(--color-text);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
   box-shadow: var(--shadow);
 }
 
 .btn:hover:not(:disabled) {
-  transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0 var(--color-black);
+  transform: var(--hover-transform);
+  box-shadow: var(--hover-shadow);
 }
 
 .btn:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0 var(--color-black);
+  transform: var(--active-transform);
+  box-shadow: var(--active-shadow);
 }
 
 .btn:disabled {

@@ -56,20 +56,21 @@ defineEmits(['reveal', 'reset', 'fight'])
   font-size: 1.125rem;
   font-family: inherit;
   font-weight: 700;
-  border: 4px solid var(--color-black);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius);
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
   box-shadow: var(--shadow);
 }
 
 .btn:hover:not(:disabled) {
-  transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0 var(--color-black);
+  transform: var(--hover-transform);
+  box-shadow: var(--hover-shadow);
 }
 
 .btn:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0 var(--color-black);
+  transform: var(--active-transform);
+  box-shadow: var(--active-shadow);
 }
 
 .btn:disabled {
@@ -79,12 +80,12 @@ defineEmits(['reveal', 'reset', 'fight'])
 
 .btn-reveal {
   background: var(--color-secondary);
-  color: var(--color-black);
+  color: var(--color-text);
 }
 
 .btn-reset {
   background: var(--color-accent);
-  color: var(--color-black);
+  color: var(--color-text);
 }
 
 .btn-fight {
