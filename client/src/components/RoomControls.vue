@@ -15,6 +15,13 @@
     >
       Start New Round
     </button>
+    <button
+      v-if="revealed && votesDiffer"
+      class="btn btn-fight"
+      @click="$emit('fight')"
+    >
+      Can't decide? Fight it out!
+    </button>
   </div>
 </template>
 
@@ -27,10 +34,14 @@ defineProps({
   hasVotes: {
     type: Boolean,
     default: false
+  },
+  votesDiffer: {
+    type: Boolean,
+    default: false
   }
 })
 
-defineEmits(['reveal', 'reset'])
+defineEmits(['reveal', 'reset', 'fight'])
 </script>
 
 <style scoped>
@@ -75,5 +86,10 @@ defineEmits(['reveal', 'reset'])
 .btn-reset {
   background: var(--color-accent);
   color: var(--color-text);
+}
+
+.btn-fight {
+  background: var(--color-primary);
+  color: var(--color-black);
 }
 </style>

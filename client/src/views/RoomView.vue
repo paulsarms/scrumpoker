@@ -39,8 +39,10 @@
           <RoomControls
             :revealed="room?.revealed || false"
             :hasVotes="hasVotes"
+            :votesDiffer="votesDiffer"
             @reveal="handleReveal"
             @reset="handleReset"
+            @fight="handleFight"
           />
         </div>
 
@@ -92,6 +94,14 @@ const hasVotes = computed(() => {
   return room.value?.users.some(u => u.vote !== null) || false
 })
 
+const votesDiffer = computed(() => {
+  if (!room.value?.revealed) return false
+  const votes = room.value.users
+    .map(u => u.vote)
+    .filter(v => v !== null && v !== 'hidden')
+  return votes.length >= 2 && new Set(votes).size > 1
+})
+
 onMounted(() => {
   connect()
 })
@@ -134,6 +144,10 @@ function handleReveal() {
 
 function handleReset() {
   reset()
+}
+
+function handleFight() {
+  funStart()
 }
 
 function handleResetRoom() {
