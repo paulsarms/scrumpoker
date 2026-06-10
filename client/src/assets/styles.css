@@ -1,7 +1,7 @@
 /* Design System with Theme Support */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* Colors */
   --color-primary: #FFDE59;
@@ -74,43 +74,47 @@
 }
 
 /* ===================== */
-/* Dark Mode (Auto)      */
+/* Dark Mode             */
 /* ===================== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
+/*
+ * Dark colors are driven by the `data-color-scheme` attribute on <html>.
+ * The useTheme composable resolves the user's choice (auto/light/dark):
+ *   - "light" -> attribute is "light" (no dark vars applied)
+ *   - "dark"  -> attribute is "dark"
+ *   - "auto"  -> attribute is set to "dark" or "light" based on
+ *               `prefers-color-scheme` (and kept in sync on change)
+ */
+[data-color-scheme="dark"] {
+  color-scheme: dark;
 
-    --color-bg: #1A1A2E;
-    --color-surface: #2D2D44;
-    --color-text: #F0F0F0;
-    --color-text-muted: #9090A8;
-    --color-border: #F0F0F0;
+  --color-bg: #1A1A2E;
+  --color-surface: #2D2D44;
+  --color-text: #F0F0F0;
+  --color-text-muted: #9090A8;
+  --color-border: #F0F0F0;
 
-    --shadow: 6px 6px 0 #F0F0F0;
-    --shadow-sm: 4px 4px 0 #F0F0F0;
+  --shadow: 6px 6px 0 #F0F0F0;
+  --shadow-sm: 4px 4px 0 #F0F0F0;
 
-    --hover-shadow: 8px 8px 0 #F0F0F0;
-    --active-shadow: 4px 4px 0 #F0F0F0;
-  }
+  --hover-shadow: 8px 8px 0 #F0F0F0;
+  --active-shadow: 4px 4px 0 #F0F0F0;
+}
 
-  [data-theme="minimalism"] {
-    color-scheme: dark;
+[data-color-scheme="dark"][data-theme="minimalism"] {
+  --color-primary: #60A5FA;
+  --color-secondary: #F87171;
+  --color-accent: #34D399;
+  --color-bg: #0F172A;
+  --color-surface: #1E293B;
+  --color-text: #F1F5F9;
+  --color-text-muted: #94A3B8;
+  --color-border: #334155;
 
-    --color-primary: #60A5FA;
-    --color-secondary: #F87171;
-    --color-accent: #34D399;
-    --color-bg: #0F172A;
-    --color-surface: #1E293B;
-    --color-text: #F1F5F9;
-    --color-text-muted: #94A3B8;
-    --color-border: #334155;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
 
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-
-    --hover-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --active-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
+  --hover-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --active-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Reset */
