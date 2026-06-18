@@ -29,6 +29,14 @@
       </div>
 
       <div class="room-content">
+        <div class="deck-area">
+          <CardDeck
+            :selectedValue="myVote"
+            :disabled="room?.revealed || false"
+            @select="handleVote"
+          />
+        </div>
+
         <div class="main-area">
           <UserList
             :users="room?.users || []"
@@ -43,14 +51,6 @@
             @reveal="handleReveal"
             @reset="handleReset"
             @fight="handleFight"
-          />
-        </div>
-
-        <div class="deck-area">
-          <CardDeck
-            :selectedValue="myVote"
-            :disabled="room?.revealed || false"
-            @select="handleVote"
           />
         </div>
       </div>
